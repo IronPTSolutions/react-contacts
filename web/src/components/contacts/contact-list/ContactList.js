@@ -1,68 +1,80 @@
-import { Component } from 'react';
 import ContactItem from '../contact-item/ContactItem';
 import ContactForm from '../contact-form/ContactForm';
+import { useEffect, useState } from 'react';
+import axios from 'axios'
 
-import contactsService from '../../../services/contacts-service';
+function ContactList(props) {
+  const [contacts, setContacts] = useState()
 
-class ContactList extends Component {
+  useEffect(() => {
+    axios.get('http://localhost:3001/api/contacts')
+      .then(response => {
+        setContacts(response.data)
+      })
+      .catch(err => console.error(err))
+  }, [])
 
-  state = {
-    contacts: [],
-    isLoading: true
+  function DeleteContact(id) {
+    axios.delete(`http://localhost:3001/api/contacts/${id}`)
+      .then(() => setContacts(contacts.filter(contact => contact.id !== id)))
+      .catch(err => console.error(err))
   }
 
-  fetchContacts() {
-    contactsService.list()
-      .then(contacts => this.setState({ contacts, isLoading: false }))
-      .catch(error => {
-        this.setState({ isLoading: false })
-        console.error(error)
-      });
+
+  function handleCreateContact(contact) {
+    setContacts([contact, ...contacts])
   }
 
-  componentDidMount() {
-    this.fetchContacts();
-  }
+  if (!contacts) return <> </>
 
-  handleDeleteContact(id) {
-    contactsService.remove(id)
-      .then(() => this.fetchContacts())
-      .catch(error => console.error(error));
-  }
+  return (
+    contacts &&
+    <>
+      <div className="row mb-2">
+        <div className="col">
+          <ContactForm onCreateContact={(contact) => handleCreateContact(contact)} />
+        </div>
+      </div>
+      <div className="row mb-2">
+        {contacts.map(contact => (
+          <li key={contact.id}>
+            <ContactItem {...contact}  onDeleteContact={DeleteContact}/>
+          </li>
+        ))}
+      </div>
 
-  handleCreateContact(contact) {
-    this.setState(({ contacts }) => ({
-      contacts: [contact, ...contacts]
-    }))
-  }
+    </>
+  );
 
-  render() {
-    const { contacts, isLoading } = this.state;
-    return (
-      contacts &&
-        <>
-          <div className="row mb-2">
-            <div className="col">
-              <ContactForm onCreateContact={(contact) => this.handleCreateContact(contact)}/>
-            </div>
-          </div>
-          {isLoading ? (<i className="fa fa-gear fa-spin"></i>) : (
-            <div className="row mb-2">
-              <div className="col">
-                <ul className="list-group">
-                  {contacts.map(contact =>
-                    <li key={contact.id} className="list-group-item list-group-item-action">
-                      <ContactItem {...contact} onDeleteContact={(id) => this.handleDeleteContact(id)} />
-                    </li>
-                  )}
-                </ul>
-              </div>
-            </div>
-          )}
-        </>
-    );
-  }
 
 }
 
+
 export default ContactList;
+
+  /* 
+    fetchContacts() {
+      contactsService.list()
+        .then(contacts => this.setState({ contacts, isLoading: false }))
+        .catch(error => {
+          this.setState({ isLoading: false })
+          console.error(error)
+        });
+    }
+  
+    componentDidMount() {
+      this.fetchContacts();
+    }
+    
+    
+    handleDeleteContact(id) {
+      contactsService.remove(id)
+        .then(() => this.fetchContacts())
+        .catch(error => console.error(error));
+    }
+  
+    handleCreateContact(contact) {
+      this.setState(({ contacts }) => ({
+        contacts: [contact, ...contacts]
+      }))
+    } */
