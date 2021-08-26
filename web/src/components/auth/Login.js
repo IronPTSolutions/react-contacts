@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { useHistory } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import { AuthContext } from "../../contexts/AuthContext"
 import service from "../../services/contacts-service"
 
@@ -60,6 +60,8 @@ function Login() {
         </div>
 
         <button type="submit">Login</button>
+
+        <Link to="/signup">Sign Up</Link>
       </form>
     </div>
   )
