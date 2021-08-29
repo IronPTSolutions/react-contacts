@@ -8,7 +8,10 @@ module.exports.create = (req, res, next) => {
       if (user) {
         next(createError(400, { errors: { email: 'This email already exists' } }))
       } else {
-        return User.create(req.body)
+        return User.create({
+          ...req.body,
+          avatar: req?.file?.path
+        })
           .then(user => res.status(201).json(user))
       }
     })
@@ -61,14 +64,24 @@ module.exports.login = (req, res, next) => {
 };
 
 module.exports.loginWithGoogle = (req, res, next) => {
+  const passportController = passport.authenticate('google-auth', {
+    scope: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'],
+  });
+
+  passportController(req, res, next);
+};
+
+module.exports.doLoginWithGoogle = (req, res, next) => {
   const passportController = passport.authenticate('google-auth', (error, user, validations) => {
     if (error) {
       next(error);
     } else {
       req.login(user, error => {
-        if (error) next(error)
-
-        else res.redirect(`${process.env.WEB_URL}/authenticate/google/cb`)
+        if (error) {
+          next(error)
+        } else {
+          res.redirect('http://localhost:3000')
+        }
       })
     }
   })

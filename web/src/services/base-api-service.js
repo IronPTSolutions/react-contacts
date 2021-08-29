@@ -12,7 +12,7 @@ http.interceptors.response.use(
     return response.data;
   }, 
   (error) => {
-    if (error?.response?.status === 401 && window.location.pathname !== "/signup") {
+    if (error?.response?.status === 401 && window.location.pathname !== "/signup" && window.location.pathname !== "/login") {
       window.location.replace('/login')
     }
     // Any status codes that falls outside the range of 2xx cause this function to trigger

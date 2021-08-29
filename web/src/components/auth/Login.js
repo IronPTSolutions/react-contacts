@@ -61,6 +61,9 @@ function Login() {
 
         <button type="submit">Login</button>
 
+        <div>
+        <a href="http://localhost:3001/api/authenticate/google">Google login</a>
+        </div>
         <Link to="/signup">Sign Up</Link>
       </form>
     </div>

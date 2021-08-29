@@ -15,8 +15,8 @@ passport.deserializeUser((id, next) => {
 });
 
 passport.use('google-auth', new GoogleStrategy({
-  clientID: process.env.GOOGLE_CLIENT_ID,
-  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  clientID: process.env.G_CLIENT_ID,
+  clientSecret: process.env.G_CLIENT_SECRET,
   callbackURL: '/api/authenticate/google/cb',
 }, (accessToken, refreshToken, profile, next) => {
   // No necesitamos guardar el token de acceso de google xq no necesitamos pedir a google ninguna información adicional
@@ -35,6 +35,7 @@ passport.use('google-auth', new GoogleStrategy({
           user = new User({
             name,
             email,
+            avatar: profile.photos[0].value,
             password: mongoose.Types.ObjectId(),
             social: {
               google: googleId

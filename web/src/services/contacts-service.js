@@ -14,7 +14,16 @@ const create = (contact) => http.post('/contacts', contact)
 
 const getUser = (id) => http.get(`/users/${id}`)
 
-const createUser = (user) => http.post(`/users`, user)
+const createUser = (user) => {
+  const data = new FormData()
+
+  data.append('name', user.name)
+  data.append('email', user.email)
+  data.append('password', user.password)
+  data.append('avatar', user.avatar)
+
+  return http.post('/users', data)
+}
 
 const service = {
   list,

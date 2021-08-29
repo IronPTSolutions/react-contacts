@@ -26,6 +26,7 @@ function SignUp() {
       name: ev.target.name.value,
       email: ev.target.email.value,
       password: ev.target.password.value,
+      avatar: ev.target.avatar.files[0]
     })
       .then(() => {
         history.push("/login")        
@@ -59,6 +60,14 @@ function SignUp() {
           <input type="password" name="password"></input>
           <small style={{color: 'red'}}>
             {error?.password}
+          </small>
+        </div>
+
+        <div>
+          Avatar
+          <input type="file" name="avatar"></input>
+          <small style={{color: 'red'}}>
+            {error?.avatar}
           </small>
         </div>
 

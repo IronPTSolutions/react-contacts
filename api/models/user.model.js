@@ -12,6 +12,9 @@ const userSchema = new Schema({
     social: {
         google: String
     },
+    avatar: {
+        type: String
+    },
     email: {
         unique: true,
         type: String,
