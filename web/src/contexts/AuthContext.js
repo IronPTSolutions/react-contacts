@@ -7,17 +7,20 @@ export function AuthContextProvider({ children }) {
   const [user, setUser] = useState()
 
   useEffect(() => {
-    service.getUser('me')
-      .then((user) => {
-        setUser(user)
-      })
+    const userId = localStorage.getItem('user');
+    if (userId) {
+      service.getUser('me')
+        .then((user) => setUser(user))
+    }
   }, [])
 
   function login(user) {
+    localStorage.setItem('user', user.id);
     setUser(user)
   }
 
   function logout() {
+    localStorage.removeItem('user');
     setUser(null)
   }
 

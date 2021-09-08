@@ -13,6 +13,7 @@ http.interceptors.response.use(
   }, 
   (error) => {
     if (error?.response?.status === 401 && window.location.pathname !== "/signup" && window.location.pathname !== "/login") {
+      localStorage.removeItem('user');
       window.location.replace('/login')
     }
     // Any status codes that falls outside the range of 2xx cause this function to trigger
