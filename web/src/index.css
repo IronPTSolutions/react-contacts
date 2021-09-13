@@ -16,6 +16,24 @@ code {
 
 .btn {
   text-transform: uppercase;
-  font-weight: 100;
+  font-weight: 400;
   font-size: 13px;
+}
+
+.avatar.avatar-sm {
+    width: 2rem;
+    height: 2rem;
+}
+
+.avatar {
+    display: inline-block;
+    position: relative;
+    width: 3rem;
+    height: 3rem;
+    text-align: center;
+    border: #dee2e6;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 1rem rgb(0 0 0 / 15%);
+    line-height: 3rem;
 }

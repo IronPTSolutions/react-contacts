@@ -47,7 +47,7 @@ app.use((error, req, res, next) => {
   if (error.errors) {
     data.errors = Object.keys(error.errors)
       .reduce((errors, key) => {
-        errors[key] = error.errors[key].message;
+        errors[key] = error.errors[key].message || error.errors[key];
         return errors;
       }, {});
   }

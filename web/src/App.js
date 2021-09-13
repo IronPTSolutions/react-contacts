@@ -5,6 +5,8 @@ import ContactDetails from './components/contacts/contact-details/ContactDetails
 import Login from './components/auth/Login';
 import Header from './components/misc/Header';
 import SignUp from './components/auth/SignUp';
+import PrivateRoute from './components/guards/PrivateRoute';
+import GoogleCallback from './components/auth/GoogleCallback';
 
 function App() {
   return (
@@ -13,10 +15,11 @@ function App() {
 
       <div className="container py-5">
         <Switch>
-          <Route exact path="/" component={ContactList} />
-          <Route exact path="/contacts/:id" component={ContactDetails} />
+          <PrivateRoute exact path="/" component={ContactList} />
+          <PrivateRoute exact path="/contacts/:id" component={ContactDetails} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/google/cb" component={GoogleCallback} />
           <Redirect to="/"/>
         </Switch>
       </div>

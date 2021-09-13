@@ -15,7 +15,7 @@ function ContactItem({ id, name, email, avatar, phone, onDeleteContact }) {
         </div>
       </div>
       <div>
-        <i className="fa fa-times text-danger" role="button" onClick={() => onDeleteContact(id)}></i>
+        <i className="fa fa-times text-danger" role="button" onClick={() => onDeleteContact(id)} style={{ position: 'relative', zIndex: 2}}></i>
       </div>
     </div>
   );

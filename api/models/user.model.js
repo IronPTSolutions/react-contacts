@@ -13,7 +13,8 @@ const userSchema = new Schema({
         google: String
     },
     avatar: {
-        type: String
+        type: String,
+        default: 'https://cdn.fakercloud.com/avatars/josevnclch_128.jpg'
     },
     email: {
         unique: true,
