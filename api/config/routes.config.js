@@ -1,4 +1,5 @@
 const express = require('express');
+const createError = require('http-errors');
 const contacts = require('../controllers/contacts.controller');
 const users = require('../controllers/users.controller');
 const contact = require('../middlewares/contact.mid');
@@ -22,5 +23,7 @@ router.post('/contacts', secure.isAuthenticated, contacts.create);
 router.get('/contacts/:id', secure.isAuthenticated, contact.exists, contacts.detail);
 router.delete('/contacts/:id', secure.isAuthenticated, contact.exists, contacts.delete);
 router.put('/contacts/:id', secure.isAuthenticated, contact.exists, contacts.edit);
+
+router.use((req, res, next) => next(createError(404, 'Route not found')))
 
 module.exports = router;
