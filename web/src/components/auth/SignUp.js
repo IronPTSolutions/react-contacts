@@ -57,7 +57,7 @@ function SignUp() {
           <div className="d-grid gap-2">
             <button className="btn btn-primary" type="submit" disabled={Object.keys(errors).length !== 0}>Sign Up</button>
             <hr />
-            <a href="http://localhost:3001/api/authenticate/google" className="btn btn-danger" role="button"><i className="fa fa-google" /> Login with Google</a>
+            <a href={`${process.env.REACT_APP_API_BASE_URL}/authenticate/google`} className="btn btn-danger" role="button"><i className="fa fa-google" /> Login with Google</a>
             <Link to="/login" className="btn btn-secondary" role="button">Login</Link>
           </div>
 
