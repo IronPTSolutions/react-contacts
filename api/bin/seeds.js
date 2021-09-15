@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const mongoose = require('mongoose');
 const Contact = require('../models/contact.model');
 const contacts = require('../data/contacts.json');
