@@ -1,0 +1,6 @@
+# https://devcenter.heroku.com/articles/build-docker-images-heroku-yml
+build:
+  docker:
+    web: Dockerfile
+  config:
+    REACT_APP_API_BASE_URL: https://iron-contacts.herokuapp.com/api

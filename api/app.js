@@ -13,6 +13,8 @@ const session = require('./config/session.config');
 
 const app = express();
 
+app.use(express.static(`${__dirname}/react-app`));
+
 /** Middlewares */
 app.use(logger('dev'));
 app.use(session);
@@ -25,9 +27,11 @@ app.use(express.json());
 const routes = require('./config/routes.config');
 app.use('/api', routes);
 
-/** Error Handling */
+app.get('/*', (req, res) => {
+  res.sendFile(`${__dirname}/react-app/index.html`);
+})
 
-app.use((req, res, next) => next(createError(404, 'Route not found')))
+/** Error Handling */
 
 app.use((error, req, res, next) => {
   if (error instanceof mongoose.Error.ValidationError) {
