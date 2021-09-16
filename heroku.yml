@@ -3,4 +3,4 @@ build:
   docker:
     web: Dockerfile
   config:
-    REACT_APP_API_BASE_URL: https://iron-contacts.herokuapp.com/apix
+    REACT_APP_API_BASE_URL: https://iron-contacts.herokuapp.com/api
