@@ -44,6 +44,8 @@ docker run --env-file api/.env --link mongo -p 3001:3001 iron-contacts:0.1.0
 
 # Deploy in Heroku using docker
 
+install heroku cli: https://devcenter.heroku.com/articles/heroku-cli
+
 https://devcenter.heroku.com/articles/build-docker-images-heroku-yml
 
 ```bash
